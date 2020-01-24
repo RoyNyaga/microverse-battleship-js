@@ -53,7 +53,6 @@ class Gameboard {
     this.lastShotSucceeded = false
     this.lastShotXY = null
     this.shotsSinceLastHit = 0
-    console.log(this.board)
   }
 
   playerAttack () {

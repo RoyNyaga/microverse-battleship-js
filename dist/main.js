@@ -1,1 +1,402 @@
-!function(e){var t={};function o(n){if(t[n])return t[n].exports;var r=t[n]={i:n,l:!1,exports:{}};return e[n].call(r.exports,r,r.exports,o),r.l=!0,r.exports}o.m=e,o.c=t,o.d=function(e,t,n){o.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},o.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},o.t=function(e,t){if(1&t&&(e=o(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(o.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)o.d(n,r,function(t){return e[t]}.bind(null,r));return n},o.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return o.d(t,"a",t),t},o.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},o.p="",o(o.s=3)}([function(e,t){e.exports=class{constructor(e,t,o){if(this.name=e,this.sunk=!1,this.spots=[],t.y==o.y)for(let e=t.x;e<=o.x;e++)this.spots.push({x:e,y:t.y,hit:!1});else for(let e=t.y;e<=o.y;e++)this.spots.push({x:t.x,y:e,hit:!1})}hit(e){let t=this.spots.indexOf(this.spots.find(t=>t.x==e.x&&t.y==e.y));this.spots[t].hit=!0,this.spots.every(e=>1==e.hit)&&(this.sunk=!0)}}},function(e,t){const o={generateRandomCoords:function(){let e={x:-5,y:-5};return e.x=Math.floor(10*Math.random()),e.y=Math.floor(10*Math.random()),e},generateEducatedCoords:function(e){let t={x:-5,y:-5};for(;t.x<0||t.x>9||t.y<0||t.y>9;)switch(Math.floor(4*Math.random())){case 0:t.x=e.x+1,t.y=e.y;break;case 1:t.x=e.x-1,t.y=e.y;break;case 2:t.x=e.x,t.y=e.y+1;break;case 3:t.x=e.x,t.y=e.y-1}return t}};e.exports=o},function(e,t){const o={checkForWin:function(e,t){const o=document.getElementsByClassName("board")[0],n=document.getElementById("game-over");e.sunkenShips>=5&&(o.style.pointerEvents="none",n.innerHTML="player"==t?"You Win!":"You Lose!")},messages:function(e){const t=document.getElementById("game-over");t.innerHTML="player"==e?"One of the computers ships has been sunk":"One of your ships has been sunk"}};e.exports=o},function(e,t,o){"use strict";o.r(t);const n=o(0),r=o(1),s=o(2);var a=class{constructor(){const e=this;this.sunkenShips=0,this.board=[];for(let e=0;e<10;e++)this.board.push(new Array(10).fill(0));function t(t){let o=-5,r=-5;for(;o+t<0||o+t>9||r+t<0||r+t>9;)o=Math.floor(10*Math.random()),r=Math.floor(10*Math.random());const s=Math.random()<.5?"H":"V";let a;a=new n(`ship${t+1}`,{x:o,y:r},"V"==s?{x:o,y:r+t}:{x:o+t,y:r});let i=!0;return a.spots.forEach(t=>{0!=e.board[t.x][t.y]&&(i=!1)}),i&&(e.ships.push(a),a.spots.forEach(t=>{e.board[t.x][t.y]=1})),i}this.ships=[];[4,3,3,2,1].forEach(e=>{let o;do{o=t(e)}while(!o)});this.board.forEach(e=>e.forEach(e=>{1==e&&0})),this.lastShotSucceeded=!1,this.lastShotXY=null,this.shotsSinceLastHit=0,console.log(this.board)}playerAttack(){let e=this.gameboard.board[this.x][this.y];document.getElementById("game-over").innerHTML="",this.gameboard.receiveAttack(this.gameboard,this,"player"),1==e?this.classList.toggle("red"):(e=2,this.classList.toggle("white")),this.removeEventListener("click",this.gameboard.playerAttack)}computerAttack(){let e;this.removeEventListener("click",this.enemyboard.computerAttack),e=this.enemyboard.lastShotSucceeded?this.enemyboard.educatedShot(this):this.enemyboard.randomShot(this);const t=document.getElementById(`X${e.x}-Y${e.y}`);1==this.enemyboard.board[e.x][e.y]?(t.classList.toggle("red"),this.enemyboard.lastShotSucceeded=!0,this.enemyboard.shotsSinceLastHit=0,this.enemyboard.lastShotXY={x:e.x,y:e.y},this.enemyboard.receiveAttack(this.enemyboard,e,"NPC")):(t.classList.toggle("white"),this.enemyboard.shotsSinceLastHit++,this.enemyboard.shotsSinceLastHit>=4&&(this.enemyboard.lastShotSucceeded=!1)),this.enemyboard.board[e.x][e.y]=2}educatedShot(e){let t=1,o=r.generateEducatedCoords(e.enemyboard.lastShotXY);for(;2==e.enemyboard.board[o.x][o.y]&&t<5;)o=r.generateEducatedCoords(e.enemyboard.lastShotXY),t++;return 5==t&&(o=e.enemyboard.randomShot(e)),o}randomShot(e){let t=r.generateRandomCoords();for(;2==e.enemyboard.board[t.x][t.y];)t=r.generateRandomCoords();return t}receiveAttack(e,t,o){e:for(const n of e.ships)for(const r of n.spots)if(r.x==t.x&&r.y==t.y){n.hit({x:t.x,y:t.y}),n.sunk&&(e.sunkenShips++,s.messages(o),s.checkForWin(e,o));break e}}};function i(e,t=null){const o=document.querySelector("#playing-board"),n=document.createElement("div");n.classList="board",n.id=null!==t?"right-board":"left-board",o.appendChild(n);for(let o=0;o<10;o++)for(let r=0;r<10;r++){const s=document.createElement("div");s.classList="square",null===t&&(s.id=`X${o}-Y${r}`),0==r&&s.classList.toggle("first"),s.x=o,s.y=r,s.gameboard=e,s.enemyboard=t,null!==t?(s.addEventListener("click",e.playerAttack),s.addEventListener("click",t.computerAttack)):1==e.board[o][r]&&s.classList.toggle("player-ship"),n.appendChild(s)}}(function(){const e=new a,t=new a;i(e,t);const o=document.querySelector("#information-board"),n=document.createElement("div");n.id="game-over",n.innerHTML="click on restart to change ship position",o.appendChild(n);const r=document.createElement("div");r.type="button",r.id="reset",r.innerHTML="Restart",r.addEventListener("click",()=>window.location.reload()),o.appendChild(r),i(t)})()}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+class Ship {
+  constructor(name, start, end) {
+    this.name = name;
+    this.sunk = false;
+    this.spots = [];
+    if (start.y == end.y) {
+      for (let i = start.x; i <= end.x; i++) {
+        this.spots.push({x: i, y: start.y, hit: false});
+      }
+    } else {
+      for (let i = start.y; i <= end.y; i++) {
+        this.spots.push({x: start.x, y: i, hit: false})
+      }
+    }
+  }
+  hit(target) {
+    let index = this.spots.indexOf(this.spots.find((spot) => spot.x == target.x && spot.y == target.y))
+    this.spots[index].hit = true;
+    if (this.spots.every(spot => spot.hit == true)) {
+      this.sunk = true;
+    }
+  }
+}
+module.exports = Ship;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+const computer = (() => {
+  function generateRandomCoords() {
+    let randomCoords = { x: -5, y: -5 }
+    randomCoords.x = Math.floor(Math.random() * 10);
+    randomCoords.y = Math.floor(Math.random() * 10);
+  return randomCoords;
+}
+  function generateEducatedCoords(lastshot) {
+    let educatedCoords = {x:-5, y:-5};
+    while (educatedCoords.x < 0 || educatedCoords.x > 9 || educatedCoords.y < 0 || educatedCoords.y > 9) {
+      switch(Math.floor(Math.random() * 4)){
+        case 0:
+          educatedCoords.x = lastshot.x + 1
+          educatedCoords.y = lastshot.y
+          break;
+        case 1:
+          educatedCoords.x = lastshot.x - 1
+          educatedCoords.y = lastshot.y
+          break;
+        case 2:
+          educatedCoords.x = lastshot.x
+          educatedCoords.y = lastshot.y + 1
+          break;
+        case 3:
+          educatedCoords.x = lastshot.x
+          educatedCoords.y = lastshot.y - 1
+          break;
+      }
+    }
+    return educatedCoords;
+  }
+  return { generateRandomCoords, generateEducatedCoords }
+})()
+module.exports = computer;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+const info = (() => {
+  function checkForWin (targetBoard, player) {
+    const board = document.getElementsByClassName('board')[0]
+    const gameOverDiv = document.getElementById('game-over')
+
+    if (targetBoard.sunkenShips >= 5) {
+      board.style.pointerEvents = 'none'
+      if (player == 'player') {
+        gameOverDiv.innerHTML = 'You Win!'
+      } else {
+        gameOverDiv.innerHTML = 'You Lose!'
+      }
+    }
+  }
+
+  function messages (player) {
+    const gameOverDiv = document.getElementById('game-over')
+    if (player == 'player') {
+      gameOverDiv.innerHTML = 'One of the computers ships has been sunk'
+    } else {
+      gameOverDiv.innerHTML = 'One of your ships has been sunk'
+    }
+  }
+
+  return { checkForWin, messages }
+})()
+
+module.exports = info
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./src/gameBoard.js
+/* eslint-disable no-unused-vars */
+const Ship = __webpack_require__(0)
+const computer = __webpack_require__(1)
+const info = __webpack_require__(2)
+class Gameboard {
+  constructor () {
+    const self = this
+    this.sunkenShips = 0
+    this.board = []
+    for (let i = 0; i < 10; i++) {
+      this.board.push(new Array(10).fill(0))
+    }
+    this.ships = []
+    function placeRandom (length) {
+      let randomX = -5
+      let randomY = -5
+      while (randomX + length < 0 || randomX + length > 9 || randomY + length < 0 || randomY + length > 9) {
+        randomX = Math.floor(Math.random() * 10)
+        randomY = Math.floor(Math.random() * 10)
+      }
+      const randomDir = Math.random() < 0.5 ? 'H' : 'V'
+      let ship
+      if (randomDir == 'V') {
+        ship = new Ship(`ship${length + 1}`, { x: randomX, y: randomY }, { x: randomX, y: randomY + length })
+      } else {
+        ship = new Ship(`ship${length + 1}`, { x: randomX, y: randomY }, { x: randomX + length, y: randomY })
+      }
+      let spotisValid = true
+      ship.spots.forEach(spot => {
+        if (self.board[spot.x][spot.y] != 0) {
+          spotisValid = false
+        }
+      })
+      if (spotisValid) {
+        self.ships.push(ship)
+        ship.spots.forEach(spot => {
+          self.board[spot.x][spot.y] = 1
+        })
+      }
+      return spotisValid
+    }
+    const stockShips = [4, 3, 3, 2, 1]
+    stockShips.forEach(length => {
+      let happened
+      do {
+        happened = placeRandom(length)
+      } while (!happened)
+    })
+    let count = 0
+    this.board.forEach(row => row.forEach(coord => {
+      if (coord == 1) { count++ }
+    }))
+    this.lastShotSucceeded = false
+    this.lastShotXY = null
+    this.shotsSinceLastHit = 0
+  }
+
+  playerAttack () {
+    let boardTarget = this.gameboard.board[this.x][this.y]
+    const gameOverDiv = document.getElementById('game-over')
+    gameOverDiv.innerHTML = ''
+    this.gameboard.receiveAttack(this.gameboard, this, 'player')
+    if (boardTarget == 1) {
+      this.classList.toggle('red')
+    } else {
+      boardTarget = 2
+      this.classList.toggle('white')
+    }
+    this.removeEventListener('click', this.gameboard.playerAttack)
+  }
+
+  computerAttack () {
+    this.removeEventListener('click', this.enemyboard.computerAttack)
+    let computerShot
+    if (this.enemyboard.lastShotSucceeded) {
+      computerShot = this.enemyboard.educatedShot(this)
+    } else {
+      computerShot = this.enemyboard.randomShot(this)
+    }
+    const computerTarget = document.getElementById(`X${computerShot.x}-Y${computerShot.y}`)
+    if (this.enemyboard.board[computerShot.x][computerShot.y] == 1) {
+      computerTarget.classList.toggle('red')
+      this.enemyboard.lastShotSucceeded = true
+      this.enemyboard.shotsSinceLastHit = 0
+      this.enemyboard.lastShotXY = { x: computerShot.x, y: computerShot.y }
+      this.enemyboard.receiveAttack(this.enemyboard, computerShot, 'NPC')
+    } else {
+      computerTarget.classList.toggle('white')
+      this.enemyboard.shotsSinceLastHit++
+      if (this.enemyboard.shotsSinceLastHit >= 4) {
+        this.enemyboard.lastShotSucceeded = false
+      }
+    }
+    this.enemyboard.board[computerShot.x][computerShot.y] = 2
+  }
+
+  educatedShot (target) {
+    let guessCount = 1
+    let computerShot = computer.generateEducatedCoords(target.enemyboard.lastShotXY)
+    while (target.enemyboard.board[computerShot.x][computerShot.y] == 2 && guessCount < 5) {
+      computerShot = computer.generateEducatedCoords(target.enemyboard.lastShotXY)
+      guessCount++
+    }
+    if (guessCount == 5) {
+      computerShot = target.enemyboard.randomShot(target)
+    }
+    return computerShot
+  }
+
+  randomShot (target) {
+    let computerShot = computer.generateRandomCoords()
+    while (target.enemyboard.board[computerShot.x][computerShot.y] == 2) {
+      computerShot = computer.generateRandomCoords()
+    }
+    return computerShot
+  }
+
+  receiveAttack (targetBoard, target, player) {
+    loop1:
+    for (const ship of targetBoard.ships) {
+      for (const spot of ship.spots) {
+        if (spot.x == target.x && spot.y == target.y) {
+          ship.hit({ x: target.x, y: target.y })
+          if (ship.sunk) {
+            targetBoard.sunkenShips++
+            info.messages(player)
+            info.checkForWin(targetBoard, player)
+          }
+          break loop1
+        }
+      }
+    }
+  }
+}
+/* harmony default export */ var gameBoard = (Gameboard);
+
+// CONCATENATED MODULE: ./src/domManipulations.js
+
+
+function buildBoard (ownTerritory, enemyTerritory = null) {
+  const playingBoard = document.querySelector('#playing-board')
+  const boardDiv = document.createElement('div')
+  boardDiv.classList = 'board'
+  if (enemyTerritory !== null) {
+    boardDiv.id = 'right-board'
+  } else {
+    boardDiv.id = 'left-board'
+  }
+  playingBoard.appendChild(boardDiv)
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
+      const square = document.createElement('div')
+      square.classList = 'square'
+
+      if (enemyTerritory === null) {
+        square.id = `X${x}-Y${y}`
+      }
+
+      if (y == 0) {
+        square.classList.toggle('first')
+      }
+      square.x = x
+      square.y = y
+      square.gameboard = ownTerritory
+      square.enemyboard = enemyTerritory
+      if (enemyTerritory !== null) {
+        square.addEventListener('click', ownTerritory.playerAttack)
+        square.addEventListener('click', enemyTerritory.computerAttack)
+      } else if (ownTerritory.board[x][y] == 1) {
+        square.classList.toggle('player-ship')
+      }
+      boardDiv.appendChild(square)
+    }
+  }
+}
+
+function initialSetup () {
+  const NPCterritory = new gameBoard()
+  const PlayerTerritory = new gameBoard()
+  buildBoard(NPCterritory, PlayerTerritory)
+  const informationBoard = document.querySelector('#information-board')
+
+  const gameOverDiv = document.createElement('div')
+  gameOverDiv.id = 'game-over'
+  gameOverDiv.innerHTML = 'click on restart to change ship position'
+  informationBoard.appendChild(gameOverDiv)
+
+  const resetButton = document.createElement('div')
+  resetButton.type = 'button'
+  resetButton.id = 'reset'
+  resetButton.innerHTML = 'Restart'
+  resetButton.addEventListener('click', () => window.location.reload())
+  informationBoard.appendChild(resetButton)
+
+  buildBoard(PlayerTerritory)
+}
+
+/* harmony default export */ var domManipulations = (initialSetup);
+
+// CONCATENATED MODULE: ./src/index.js
+
+"use strict";
+domManipulations();
+
+/***/ })
+/******/ ]);

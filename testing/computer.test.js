@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const computer = require('../src/computer')
 
 test('generateRandomCoords generates valid random coordinates', () => {
