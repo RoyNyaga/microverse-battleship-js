@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "lint": "eslint",
     "start": "webpack --config webpack.config.js"
   },

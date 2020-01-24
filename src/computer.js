@@ -25,7 +25,7 @@ const computer = (() => {
           educatedCoords.x = lastshot.x
           educatedCoords.y = lastshot.y - 1
           break;
-      };
+      }
     }
     return educatedCoords;
   }
