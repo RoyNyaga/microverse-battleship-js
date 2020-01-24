@@ -54,6 +54,19 @@ class Gameboard {
     this.shotsSinceLastHit = 0;
     console.log(this.board);
   }
+  playerAttack(event) {
+    let boardTarget = this.gameboard.board[this.x][this.y];
+    let gameOverDiv = document.getElementById('game-over');
+    gameOverDiv.innerHTML = '';
+    this.gameboard.receiveAttack(this.gameboard, this, 'player');
+    if (boardTarget == 1) {
+      this.classList.toggle('red');
+    } else {
+      boardTarget = 2;
+      this.classList.toggle('white');
+    }
+    this.removeEventListener('click', this.gameboard.playerAttack);
+  }
  
 }
 export default Gameboard;
