@@ -13,6 +13,15 @@ const info = (() => {
     }
   }
 
+  function messages (player) {
+    const gameOverDiv = document.getElementById('game-over')
+    if (player == 'player') {
+      gameOverDiv.innerHTML = 'One of the computers ships has been sunk'
+    } else {
+      gameOverDiv.innerHTML = 'One of your ships has been sunk'
+    }
+  }
+
   return { checkForWin, messages }
 })()
 
