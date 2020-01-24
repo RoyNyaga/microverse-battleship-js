@@ -112,6 +112,21 @@ class Gameboard {
     }
     return computerShot;
   }
-  
+  receiveAttack(targetBoard, target, player) {
+    loop1:
+      for (let ship of targetBoard.ships) {
+        for (let spot of ship.spots) {
+          if (spot.x == target.x && spot.y == target.y) {
+              ship.hit({x: target.x, y: target.y});
+              if (ship.sunk) {
+                targetBoard.sunkenShips++;
+                info.messages(player);
+                info.checkForWin(targetBoard, player);
+              }
+              break loop1;
+          }
+        }
+      }
+    }
 }
 export default Gameboard;
