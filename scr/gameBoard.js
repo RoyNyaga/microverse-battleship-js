@@ -93,6 +93,25 @@ class Gameboard {
     }
     this.enemyboard.board[computerShot.x][computerShot.y] = 2;
   }
+  educatedShot(target) {
+    let guessCount = 1;
+    let computerShot = computer.generateEducatedCoords(target.enemyboard.lastShotXY);
+    while (target.enemyboard.board[computerShot.x][computerShot.y] == 2 && guessCount < 5) {
+      computerShot = computer.generateEducatedCoords(target.enemyboard.lastShotXY);
+      guessCount++;
+    }
+    if (guessCount == 5) {
+      computerShot = target.enemyboard.randomShot(target);
+    }
+    return computerShot;
+  }
+  randomShot(target) {
+    let computerShot = computer.generateRandomCoords();
+    while (target.enemyboard.board[computerShot.x][computerShot.y] == 2) {
+      computerShot = computer.generateRandomCoords();
+    }
+    return computerShot;
+  }
   
 }
 export default Gameboard;
