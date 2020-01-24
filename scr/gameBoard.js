@@ -67,6 +67,32 @@ class Gameboard {
     }
     this.removeEventListener('click', this.gameboard.playerAttack);
   }
- 
+  computerAttack() {
+    this.removeEventListener('click', this.enemyboard.computerAttack);
+    let board = document.getElementsByClassName('board')[0];
+    let gameOverDiv = document.getElementById('game-over');
+    let computerShot;
+    if (this.enemyboard.lastShotSucceeded) {
+      computerShot = this.enemyboard.educatedShot(this);
+    } else {
+      computerShot = this.enemyboard.randomShot(this);
+    }
+    let computerTarget = document.getElementById(`X${computerShot.x}-Y${computerShot.y}`);
+    if (this.enemyboard.board[computerShot.x][computerShot.y] == 1) {
+      computerTarget.classList.toggle('red');
+      this.enemyboard.lastShotSucceeded = true;
+      this.enemyboard.shotsSinceLastHit = 0;
+      this.enemyboard.lastShotXY = { x: computerShot.x, y: computerShot.y };
+      this.enemyboard.receiveAttack(this.enemyboard, computerShot, 'NPC')
+    } else {
+      computerTarget.classList.toggle('white');
+      this.enemyboard.shotsSinceLastHit++;
+      if (this.enemyboard.shotsSinceLastHit >= 4) {
+        this.enemyboard.lastShotSucceeded = false;
+      }
+    }
+    this.enemyboard.board[computerShot.x][computerShot.y] = 2;
+  }
+  
 }
 export default Gameboard;
