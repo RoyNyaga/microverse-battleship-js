@@ -37,4 +37,25 @@ function buildBoard (ownTerritory, enemyTerritory = null) {
   }
 }
 
+function initialSetup () {
+  const NPCterritory = new Gameboard()
+  const PlayerTerritory = new Gameboard()
+  buildBoard(NPCterritory, PlayerTerritory)
+  const informationBoard = document.querySelector('#information-board')
+
+  const gameOverDiv = document.createElement('div')
+  gameOverDiv.id = 'game-over'
+  gameOverDiv.innerHTML = 'click on restart to change ship position'
+  informationBoard.appendChild(gameOverDiv)
+
+  const resetButton = document.createElement('div')
+  resetButton.type = 'button'
+  resetButton.id = 'reset'
+  resetButton.innerHTML = 'Restart'
+  resetButton.addEventListener('click', () => window.location.reload())
+  informationBoard.appendChild(resetButton)
+
+  buildBoard(PlayerTerritory)
+}
+
 export default initialSetup
