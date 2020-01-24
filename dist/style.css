@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+ /* padding-left: 150px;
+  padding-right: 400px;*/
+}
+
+
+.square {
+  height: 3vw;
+  width: 3vw;
+  background-color: rgb(0, 67, 255);
+  border: 0.1vw solid #f3b80a;
+  display: inline-block;
+  float: left;
+}
+
+.first {
+  clear: left;
+}
+
+
+.white {
+  background-color: white;
+}
+
+.player-ship {
+  background-color: black;
+}
+
+.red {
+  background-color: red;
+}
+
+.board {
+  border: 0.6vw solid white;
+  background: yellow;
+  display: inline-block;
+}
+
+ #right-board {
+   position: relative;
+   left: 250px;
+  }
+
+  #left-board {
+    position: relative;
+    left: 300px;
+  }
+
+#game-over {
+  font-size: 2vw;
+  font-weight: bold;
+  color: white;
+  background-color: blue;
+  border: 0.3vw solid white;
+  text-align: center;
+}
+
+#reset {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 10%;
+  text-align: center;
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+ 

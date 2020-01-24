@@ -1,0 +1,30 @@
+{
+  "name": "microverse-battleship",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "start": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoyNyaga/microverse-battleship-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RoyNyaga/microverse-battleship-js/issues"
+  },
+  "homepage": "https://github.com/RoyNyaga/microverse-battleship-js#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint_d": "^8.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "jest": "^25.1.0",
+    "jest-webpack": "^0.5.1"
+  }
+}

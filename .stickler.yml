@@ -1,0 +1,12 @@
+linters:
+    eslint:
+        config: './eslint.config'
+fixers:
+    enable: true
+    
+files:
+  ignore:
+    - 'bower_components/*'
+    - 'node_modules/*'
+    - '.eslintrc.json'
+    - 'webpack.config.js'
