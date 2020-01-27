@@ -1,4 +1,4 @@
-/* eslint-disable no-plusplus */
+/* eslint-disable no-plusplus, arrow-parens */
 
 class Ship {
   constructor(name, start, end) {

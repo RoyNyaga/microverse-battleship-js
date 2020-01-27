@@ -88,7 +88,7 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-/* eslint-disable no-plusplus */
+/* eslint-disable no-plusplus, arrow-parens */
 
 class Ship {
   constructor(name, start, end) {
@@ -206,7 +206,7 @@ __webpack_require__.r(__webpack_exports__);
 // CONCATENATED MODULE: ./src/gameBoard.js
 /* eslint-disable no-unused-vars,
 no-plusplus, class-methods-use-this,
-no-restricted-syntax, no-labels */
+no-restricted-syntax, no-labels, arrow-parens */
 
 const Ship = __webpack_require__(0);
 const computer = __webpack_require__(1);

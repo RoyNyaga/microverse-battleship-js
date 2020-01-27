@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars,
 no-plusplus, class-methods-use-this,
-no-restricted-syntax, no-labels */
+no-restricted-syntax, no-labels, arrow-parens */
 
 const Ship = require('../src/ship');
 const computer = require('../src/computer');
